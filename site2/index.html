@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Havana RJ Logs</title>
+    <style>
+        body {
+            background-image: url('./img/teste2.png'); /* Caminho para a sua imagem de fundo */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Cor de fundo com transparência */
+            padding: 20px;
+            margin-top: 50px; /* Espaço acima do container */
+            border-radius: 10px;
+            width: 80%; /* Definindo a largura do contêiner para 80% */
+            max-width: 800px; /* Largura máxima do contêiner */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .log-section {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .log {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .log:hover {
+            background-color: #e0e0e0;
+        }
+        .search-form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #6a0dad;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .logs {
+            margin-top: 20px;
+            margin-bottom: 20px; /* Espaço entre as seções de logs */
+        }
+        .log-entry {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between; /* Alinha os elementos horizontalmente */
+            align-items: center; /* Alinha os elementos verticalmente */
+        }
+        .log-content {
+            flex-grow: 1; /* Faz o conteúdo do log ocupar o espaço disponível */
+        }
+        .log-date {
+            margin-right: 10px; /* Adiciona um espaçamento à direita para separar o conteúdo */
+            color: #666; /* Define a cor do texto da data */
+            font-size: 14px; /* Define o tamanho da fonte da data */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logs e Webhooks</h1>
+        <div class="log-section">
+            <div class="log" onclick="showDetails('morte')">Morte</div>
+            <div class="log" onclick="showDetails('enviou')">Enviou</div>
+            <div class="log" onclick="showDetails('pegou')">Pegou</div>
+        </div>
+
+        <!-- Formulário de pesquisa -->
+        <form class="search-form" id="searchForm" onsubmit="searchLogs(); return false;">
+            <label for="playerId">ID do Jogador:</label>
+            <input type="text" id="playerId" name="playerId">
+            <input type="submit" value="Pesquisar">
+        </form>
+
+        <!-- Logs -->
+        <div id="morte" style="display: none;" class="logs">
+            <div class="log-entry">
+                <div class="log-content">Jogador1 foi morto por Jogador2</div>
+                <div class="log-date">10/03/2024 14:30</div>
+            </div>
+            <div class="log-entry">
+                <div class="log-content">Jogador3 foi morto por Jogador4</div>
+                <div class="log-date">11/03/2024 16:45</div>
+            </div>
+        </div>
+
+        <div id="enviou" style="display: none;" class="logs">
+            <div class="log-entry">
+                <div class="log-content">Jogador1 enviou 5 poções para Jogador2</div>
+                <div class="log-date">09/03/2024 10:15</div>
+            </div>
+            <div class="log-entry">
+                <div class="log-content">Jogador3 enviou 3 armaduras para Jogador4</div>
+                <div class="log-date">10/03/2024 18:20</div>
+            </div>
+        </div>
+
+        <div id="pegou" style="display: none;" class="logs">
+            <div class="log-entry">
+                <div class="log-content">Jogador1 pegou uma espada</div>
+                <div class="log-date">08/03/2024 12:00</div>
+            </div>
+            <div class="log-entry">
+                <div class="log-content">Jogador2 pegou um arco</div>
+                <div class="log-date">09/03/2024 09:30</div>
+            </div>
+        </div>
+
+        <!-- Resultado da pesquisa -->
+        <div id="searchResult" style="display: none;" class="logs"></div>
+    </div>
+
+    <script>
+        function showDetails(sectionId) {
+            var logs = document.querySelectorAll('.log-section div[id]');
+            logs.forEach(function(log) {
+                log.style.display = 'none';
+            });
+
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function searchLogs() {
+            var playerId = document.getElementById('playerId').value;
+            var logs = document.querySelectorAll('.logs');
+            logs.forEach(function(log) {
+                log.style.display = 'none';
+            });
+
+            var searchResult = document.getElementById('searchResult');
+            searchResult.innerHTML = '';
+
+            if (playerId.trim() === '') {
+                searchResult.style.display = 'none';
+                return;
+            }
+
+            var logEntries = document.querySelectorAll('.log-entry');
+            var foundLogs = [];
+
+            logEntries.forEach(function(logEntry) {
+                if (logEntry.textContent.toLowerCase().includes(playerId.toLowerCase())) {
+                    foundLogs.push(logEntry.textContent);
+                }
+            });
+
+            if (foundLogs.length > 0) {
+                foundLogs.forEach(function(log) {
+                    var entry = document.createElement('div');
+                    entry.className = 'log-entry';
+                    entry.textContent = log;
+                    searchResult.appendChild(entry);
+                });
+                searchResult.style.display = 'block';
+            } else {
+                searchResult.textContent = 'Nenhum resultado encontrado.';
+                searchResult.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
