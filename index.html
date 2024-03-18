@@ -3,110 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site Cristão</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Tela de Login</title>
     <style>
-        /* Estilos para a barra de navegação lateral */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 200px;
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .sidebar h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar li {
-            margin-bottom: 10px;
-        }
-
-        .sidebar li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .sidebar li a:hover {
-            text-decoration: underline;
-        }
-
-        /* Estilo para a imagem de fundo */
         body {
-            background-image: url('./img/teste.png');
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('./img/teste.png'); /* Adiciona a imagem de fundo */
             background-size: cover;
             background-repeat: no-repeat;
-            background-position: center;
         }
-
-        /* Estilos para os vídeos */
-        .video {
-            margin-bottom: 20px;
-        }
-
-        .video img {
+        .container {
             width: 100%;
-            height: auto;
+            max-width: 400px; /* Diminui o tamanho máximo do contêiner */
+            margin: 100px auto;
+            padding: 40px; /* Diminui o espaçamento interno do contêiner */
+            background-color: rgba(255, 255, 255, 0.8); /* Adiciona um fundo branco semi-transparente */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #6a0dad;
+            text-align: center;
+            margin-bottom: 30px; /* Diminui o espaço abaixo do título */
+        }
+        label {
+            display: block;
+            margin-bottom: 15px; /* Diminui o espaço entre os rótulos */
+            color: #6a0dad;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px; /* Diminui o tamanho do campo de entrada */
+            margin-bottom: 20px; /* Diminui o espaço entre os campos de entrada */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px; /* Diminui o tamanho do botão */
+            background-color: #6a0dad;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #4a0782;
+        }
+        .forgot-password {
+            text-align: right;
+            margin-top: 15px; /* Diminui o espaço acima do link */
+            color: #6a0dad;
+        }
+        .forgot-password a {
+            color: #6a0dad;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Meu Site Cristão</h1>
-    </header>
-    <!-- Barra de navegação lateral -->
-    <nav class="sidebar">
-        <h2>Categorias</h2>
-        <ul>
-            <li><a href="#categoria1">Categoria 1</a></li>
-            <li><a href="#categoria2">Categoria 2</a></li>
-            <!-- Adicione mais categorias conforme necessário -->
-        </ul>
-    </nav>
-    <main>
-        <section id="categoria1" class="category">
-            <h2>Categoria 1</h2>
-            <div class="videos">
-                <div class="video">
-                    <h3>Vídeo 1</h3>
-                    <img src="img/teste2.jpg" alt="Thumbnail do Vídeo 1">
-                </div>
-                <div class="video">
-                    <h3>Vídeo 2</h3>
-                    <img src="img/teste2.jpg" alt="Thumbnail do Vídeo 2">
-                </div>
-                <!-- Adicione mais vídeos nesta categoria conforme necessário -->
-            </div>
-        </section>
-        <section id="categoria2" class="category">
-            <h2>Categoria 2</h2>
-            <div class="videos">
-                <div class="video">
-                    <h3>Vídeo 3</h3>
-                    <img src="img/teste2.jpg" alt="Thumbnail do Vídeo 3">
-                </div>
-                <div class="video">
-                    <h3>Vídeo 4</h3>
-                    <img src="img/teste2.jpg" alt="Thumbnail do Vídeo 4">
-                </div>
-                <!-- Adicione mais vídeos nesta categoria conforme necessário -->
-            </div>
-        </section>
-        <!-- Adicione mais categorias conforme necessário -->
-    </main>
+    <div class="container">
+        <h2>Havana RJ</h2>
+        <form action="seu_script_de_login.php" method="POST">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <input type="submit" value="Login">
+        </form>
+        <div class="forgot-password">
+            <a href="#">Esqueceu a senha?</a>
+        </div>
+    </div>
 </body>
 </html>
